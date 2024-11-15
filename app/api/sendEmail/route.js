@@ -19,10 +19,21 @@ export async function POST(req) {
       return NextResponse.json({ message: 'Email is required' }, { status: 400 });
     }
 
-    await pool.query(
-      'INSERT INTO subscribers (email, subscribed_at) VALUES ($1, NOW())',
-      [email]
-    );
+    try {
+      // Attempt to insert the email into the database
+      await pool.query(
+        'INSERT INTO subscribers (email, subscribed_at) VALUES ($1, NOW())',
+        [email]
+      );
+    } catch (dbError) {
+      // Check if the error is a unique constraint violation (duplicate email)
+      if (dbError.code === '23505') {
+        console.warn('Duplicate email:', email);
+        return NextResponse.json({ message: 'You are already subscribed.' }, { status: 409 }); // Use 409 for conflict
+      }
+      // Rethrow if it's not the specific error we want to handle
+      throw dbError;
+    }
 
     // Configure the Nodemailer transporter
     const transporter = nodemailer.createTransport({

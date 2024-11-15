@@ -34,8 +34,17 @@ export default function EmailSubscription() {
       const response = await axios.post('/api/sendEmail', {email: email});
 
       if (response.status === 201) {
-        setEmail("")
+        setEmail("");
         toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else if (response.status === 409) {
+        toast.info('You are already subscribed!', {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
@@ -56,8 +65,6 @@ export default function EmailSubscription() {
         draggable: true,
       });
       console.error('Error:', error);
-    } finally {
-        setIsLoading(false); // End the loading state
     }
   };
 
