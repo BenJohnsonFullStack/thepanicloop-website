@@ -29,7 +29,7 @@ export async function POST(req) {
       // Check if the error is a unique constraint violation (duplicate email)
       if (dbError.code === '23505') {
         console.warn('Duplicate email:', email);
-        return NextResponse.json({ message: 'You are already subscribed.' }, { status: 409 }); // Use 409 for conflict
+        return NextResponse.json({ message: 'You are already subscribed.'}, { status: 409 }); // Use 409 for conflict
       }
       // Rethrow if it's not the specific error we want to handle
       throw dbError;

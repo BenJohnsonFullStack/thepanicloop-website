@@ -32,6 +32,7 @@ export default function EmailSubscription() {
 
     try {
       const response = await axios.post('/api/sendEmail', {email: email});
+      console.log(response)
 
       if (response.status === 201) {
         setEmail("");
@@ -43,28 +44,33 @@ export default function EmailSubscription() {
           pauseOnHover: true,
           draggable: true,
         });
-      } else if (response.status === 409) {
-        toast.info('You are already subscribed!', {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
       } else {
         throw new Error(response.data.message);
       }
     } catch (error) {
-      toast.error('Subscription failed. Please try again.', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+        if (error.response && error.response.status === 409) {
+            toast.info('You are already subscribed!', {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            });
+          } else {
+            // Handle other errors
+            toast.error('Subscription failed. Please try again.', {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            });
+        }
       console.error('Error:', error);
+    } finally {
+        setIsLoading(false); // End the loading state
     }
   };
 
