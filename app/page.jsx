@@ -27,7 +27,7 @@ export default function Home() {
       <EmailSubscription />
 
       {/* Description */}
-      <p className="text-md sm:text-lg text-white text-center mb-8 max-w-2xl">A high-voltage, NSFW ride through the best and worst of tech culture, the web, IoT, movies, video games, and more. If you're ready for a show that’s both smart and irreverent, one that makes you love and hate us all at once, The Panic Loop is your digital meltdown destination.</p>
+      <p className="text-md sm:text-lg text-white text-center mb-8 max-w-2xl">A high-voltage, NSFW ride through the best and worst of tech culture, the web, IoT, movies, video games, and more. If you're ready for a show that&#39;s both smart and irreverent, one that makes you love and hate us all at once, The Panic Loop is your digital meltdown destination.</p>
       
 
       {/* Indication of New Episodes */}
