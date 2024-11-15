@@ -19,6 +19,11 @@ export async function POST(req) {
       return NextResponse.json({ message: 'Email is required' }, { status: 400 });
     }
 
+    await pool.query(
+      'INSERT INTO subscribers (email, subscribed_at) VALUES ($1, NOW())',
+      [email]
+    );
+
     // Configure the Nodemailer transporter
     const transporter = nodemailer.createTransport({
       host: 'smtp.office365.com', // Microsoft 365 SMTP server
