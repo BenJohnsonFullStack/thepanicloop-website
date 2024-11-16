@@ -1,14 +1,5 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import { Pool } from 'pg';
-
-// Configure the PostgreSQL client using the DATABASE_URL from your environment variables
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false, // This may be needed for secure connections, especially with Neon
-  },
-});
 
 export async function POST(req) {
   try {
@@ -19,47 +10,32 @@ export async function POST(req) {
       return NextResponse.json({ message: 'Email is required' }, { status: 400 });
     }
 
-    try {
-      // Attempt to insert the email into the database
-      await pool.query(
-        'INSERT INTO subscribers (email, subscribed_at) VALUES ($1, NOW())',
-        [email]
-      );
-    } catch (dbError) {
-      // Check if the error is a unique constraint violation (duplicate email)
-      if (dbError.code === '23505') {
-        console.warn('Duplicate email:', email);
-        return NextResponse.json({ message: 'You are already subscribed.'}, { status: 409 }); // Use 409 for conflict
-      }
-      // Rethrow if it's not the specific error we want to handle
-      throw dbError;
-    }
-
     // Configure the Nodemailer transporter
     const transporter = nodemailer.createTransport({
-      host: 'smtp.office365.com', // Microsoft 365 SMTP server
-      port: 587, // SMTP port
-      secure: false, // Set to true if port 465 is used
+      host: 'smtp.office365.com',
+      port: 587,
+      secure: false,
       auth: {
-        user: process.env.EMAIL_USER, // Your Microsoft 365 email address
-        pass: process.env.EMAIL_PASSWORD, // Your Microsoft 365 email password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 
     // Email options
     const mailOptions = {
-      from: `"The Panic Loop Podcast Team" <${process.env.EMAIL_USER}>`, // Sender name and  address
-      to: email, // Recipient address
+      from: `"The Panic Loop Podcast Team" <${process.env.EMAIL_USER}>`,
+      to: email,
       subject: 'Thanks for Subscribing!',
       text: 'Welcome to The Panic Loop Podcast! Be on the lookout for updates about new episodes and contests coming in 2025!',
     };
 
-    // Send email
+    // Attempt to send the email
     const result = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', result);
 
-    return NextResponse.json({ message: 'Subscription successful', result }, { status: 201 });
-  } catch (error) {
-    console.error('Email Client Error:', error);
-    return NextResponse.json({ message: 'Subscription failed. Please try again.', error }, { status: 500 });
+    return NextResponse.json({ message: 'Confirmation email sent successfully' }, { status: 200 });
+  } catch (emailError) {
+    console.error('Email sending error:', emailError);
+    return NextResponse.json({ message: 'Failed to send confirmation email.' }, { status: 500 });
   }
 }

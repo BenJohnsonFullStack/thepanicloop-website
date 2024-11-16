@@ -17,7 +17,37 @@ export default function EmailSubscription() {
 
   const handleSubscribe = async () => {
     if (!email || !isValidEmail(email)) {
-        toast.error('Please enter a valid email address', {
+      toast.error('Please enter a valid email address', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      return;
+    }
+  
+    setIsLoading(true);
+  
+    try {
+      // Step 1: Add email to the database
+      const dbResponse = await axios.post('/api/addSubscriber', { email });
+
+      if (dbResponse.status === 201) {
+        toast.success(dbResponse.data.message || 'Thanks for subscribing!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+
+        try {
+          // Step 2: Send the confirmation email
+          const emailResponse = await axios.post('/api/sendEmail', { email });
+          toast.info(emailResponse.data.message || 'Confirmation email sent.', {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: true,
@@ -25,18 +55,21 @@ export default function EmailSubscription() {
             pauseOnHover: true,
             draggable: true,
           });
-      return;
-    }
-
-    setIsLoading(true); // Start the loading state
-
-    try {
-      const response = await axios.post('/api/sendEmail', {email: email});
-      console.log(response)
-
-      if (response.status === 201) {
-        setEmail("");
-        toast.success(response.data.message, {
+        } catch (emailError) {
+          toast.warning(emailError.response?.data.message || 'Confirmation email could not be sent.', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+          console.error('Email send error:', emailError);
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        toast.info(error.response.data.message || 'You are already subscribed!', {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
@@ -45,58 +78,44 @@ export default function EmailSubscription() {
           draggable: true,
         });
       } else {
-        throw new Error(response.data.message);
+        toast.error(error.response?.data.message || 'Subscription failed. Please try again.', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        console.error('Error:', error);
       }
-    } catch (error) {
-        if (error.response && error.response.status === 409) {
-            toast.info('You are already subscribed!', {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-            });
-          } else {
-            // Handle other errors
-            toast.error('Subscription failed. Please try again.', {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-            });
-        }
-      console.error('Error:', error);
     } finally {
-        setIsLoading(false); // End the loading state
+      setIsLoading(false);
     }
   };
 
   return (
     <div className={`flex flex-col sm:flex-row items-center justify-center mb-10 w-full px-2 sm:w-1/4`}>
-        {/* Email Input */}
-        <EmailInput
-            className="flex-1 mb-2 sm:mb-0 sm:mr-2 text-black w-full"
-            email={email}
-            setEmail={setEmail}
+      {/* Email Input */}
+      <EmailInput
+        className="flex-1 mb-2 sm:mb-0 sm:mr-2 text-black w-full"
+        email={email}
+        setEmail={setEmail}
+      />
+
+      {/* Show the spinner if loading, otherwise show the button */}
+      {isLoading ? (
+        <div className="w-full sm:w-auto px-4 py-2 flex justify-center">
+          <Spinner className="w-6 h-6" />
+        </div>
+      ) : (
+        <SubscribeButton
+          onClick={handleSubscribe}
+          className="w-full sm:w-auto"
         />
+      )}
 
-        {/* Show the spinner if loading, otherwise show the button */}
-        {isLoading ? (
-            <div className="w-full sm:w-auto px-4 py-2 flex justify-center">
-                <Spinner className="w-6 h-6" />
-            </div>
-        ) : (
-            <SubscribeButton
-            onClick={handleSubscribe}
-            className="w-full sm:w-auto"
-            />
-        )}
-
-        {/* Toast Container */}
-        <ToastContainer />
+      {/* Toast Container */}
+      <ToastContainer />
     </div>
   );
 }
