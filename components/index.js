@@ -4,6 +4,7 @@ import SubscribeButton from "./SubscribeButton";
 import Spinner from "./Spinner";
 import NavLinks from "./NavLinks";
 import Header from "./Header";
+import CookieConsentBanner from "./CookieConsentBanner";
 
 export {
     EmailInput,
@@ -11,5 +12,6 @@ export {
     SubscribeButton,
     Spinner,
     NavLinks,
-    Header
+    Header,
+    CookieConsentBanner
 }

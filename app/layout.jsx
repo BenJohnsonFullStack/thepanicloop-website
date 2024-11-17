@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import { Header } from "@/components";
+import { Header, CookieConsentBanner } from "@/components";
 import { GoogleAnalytics } from "@next/third-parties/google"
 
 const hackedFont = localFont({
@@ -17,6 +17,8 @@ export default function RootLayout({ children }) {
         <Header />
 
         {children}
+
+        <CookieConsentBanner />
       </body>
 
       <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />
