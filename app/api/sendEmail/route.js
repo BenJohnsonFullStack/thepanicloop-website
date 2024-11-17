@@ -30,8 +30,7 @@ export async function POST(req) {
     };
 
     // Attempt to send the email
-    const result = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', result);
+    await transporter.sendMail(mailOptions);
 
     return NextResponse.json({ message: 'Confirmation email sent successfully' }, { status: 200 });
   } catch (emailError) {
