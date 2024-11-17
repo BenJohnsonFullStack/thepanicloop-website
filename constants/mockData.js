@@ -8,7 +8,7 @@ export const articles = [
       headline: 'Netflix Caught With Pants Down: Buffering Crashes and Tyson’s Surprise Steal the Show',
       slug: 'tyson-paul-netflix-crash',
       tags: ['Boxing', 'Streaming', 'Netflix', 'Event Recap'],
-      description: 'Viewers faced frustration as Netflix buffering issues and unexpected surprises disrupted the highly anticipated Tyson-Paul fight.',
+      description: 'Viewers faced frustration as Netflix technical issues and unexpected surprises disrupted the highly anticipated Tyson-Paul fight.',
       lede: "Netflix hyped the Tyson-Paul fight as must-see TV, but what viewers got was a buffering trainwreck. Screens froze, apps crashed, and excitement gave way to collective rage. The cherry on top? Tyson’s bare ass making a surprise debut while Netflix scrambled to piece together their streaming fiasco.",
       nutGraf1: "The epic showdown between Mike Tyson, an old-school maniacal killer, and Jake Paul, an attention-addicted social-media influencer, was supposed to be Netflix's moment to flex its live-streaming muscles, proving they could hang with the sports broadcasting titans. Over 60 million people tuned in globally, most of them hoping to aggressively masturbate to the look on Jake Paul's face as he died on national television, and Netflix's comedy of errors just left everyone awkwardly holding their dicks.",
       nutGraf2: "Jake Paul walked out of the ring alive, Mike Tyson's moldy peach stared us all down through the back of his jock strap, and the most unlucky of us had it all frozen on our tragically high-definition screens as Netflix frantically scooped some IT guy's cottage cheese out of their servers.",
