@@ -5,6 +5,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { ArticleFooter, PhotoSubtitle } from '.';
 import Image from 'next/image';
 import { TwitterTweetEmbed } from 'react-twitter-embed';
+import Link from 'next/link';
 
 export default function ArticleDetails({ article }) {
   const router = useRouter();
@@ -95,7 +96,7 @@ export default function ArticleDetails({ article }) {
             typeof part === 'string' ? (
               <span key={index}>{part}</span>
             ) : (
-              <a
+              <Link
                 key={index}
                 href={part.href}
                 target="_blank"
@@ -103,7 +104,7 @@ export default function ArticleDetails({ article }) {
                 className="text-indigo-400 hover:underline"
               >
                 {part.text}
-              </a>
+              </Link>
             )
           )}
         </p>
@@ -125,7 +126,7 @@ export default function ArticleDetails({ article }) {
 
         {/* Article Footer */}
         <ArticleFooter />
-        
+
       </div>
     </div>
   );

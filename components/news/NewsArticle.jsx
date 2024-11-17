@@ -32,7 +32,7 @@ export default function NewsArticle({ article }) {
             {tags.map((tag, index) => (
               <span
                 key={index}
-                className="text-xs text-gray-900 bg-indigo-300 rounded-full px-2 py-1 truncate"
+                className="text-xs text-gray-900 bg-indigo-300 rounded-full px-2 py-1"
               >
                 {tag}
               </span>
