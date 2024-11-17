@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import { Header } from "@/components";
 
 const hackedFont = localFont({
   src: "./fonts/Hacked-KerX.ttf",
@@ -45,6 +46,9 @@ export default function RootLayout({ children }) {
         <meta property="og:image:alt" content={metadata.openGraph.images[0].alt} />
       </head>
       <body className={`${hackedFont.variable} antialiased`}>
+
+        <Header />
+
         {children}
       </body>
     </html>
