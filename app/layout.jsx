@@ -20,7 +20,7 @@ export const metadata = {
     url: "https://www.thepanicloop.com", // Replace with your actual domain
     images: [
       {
-        url: "/path-to-image.jpg", // Replace with a relevant image path
+        url: "/panic-loop-seo-banner.png", // Replace with a relevant image path
         width: 1200,
         height: 630,
         alt: "The Panic Loop Podcast Logo",
