@@ -4,7 +4,7 @@ export const articles = [
       imageUrl: '/tyson-vs-paul-netflix-1.webp',
       photoCredit: "Photo: Cooper Neill/Getty Images for Netflix (Getty Images)",
       author: 'Ben Johnson',
-      datetime: '2024-11-16T14:30:00Z',
+      datetime: '2024-11-16T23:30:00Z',
       headline: 'Netflix Caught With Pants Down: Buffering Crashes and Tyson’s Surprise Steal the Show',
       slug: 'tyson-paul-netflix-crash',
       tags: ['Boxing', 'Streaming', 'Netflix', 'Event Recap'],
