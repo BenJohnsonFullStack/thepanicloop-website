@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Header, CookieConsentBanner } from "@/components";
 import { GoogleAnalytics } from "@next/third-parties/google"
+import Cookies from "js-cookie";
 
 const hackedFont = localFont({
   src: "./fonts/Hacked-KerX.ttf",
@@ -10,6 +11,9 @@ const hackedFont = localFont({
 });
 
 export default function RootLayout({ children }) {
+
+  const consentGiven = Cookies.get('cookie_consent') === 'allowed';
+
   return (
     <html lang="en">
       <body className={`${hackedFont.variable} antialiased`}>
@@ -21,7 +25,7 @@ export default function RootLayout({ children }) {
         <CookieConsentBanner />
       </body>
 
-      <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />
+      {consentGiven && <GoogleAnalytics gaId={process.env.GA_TRACKING_ID} />}
     </html>
   );
 }
