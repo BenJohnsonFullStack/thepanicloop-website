@@ -31,7 +31,7 @@ export const articles = [
         },
         'that ensured we all knew how to connect our devices to the internet.'
       ],      
-      whatsNext: "Netflix obviously isn't going anywhere, because the one thing about watching a donkey (Netflix) fuck a duck (all of us) is that no matter how hard you try you just can't look away. So our eyes are glued, Netflix is laughing all the way to the bank, and Jake Paul still isn't dead. With major NFL events coming to Netflix on Christmas Day, one has to wonder if the streaming giant is going to finish us off next time or leave us all chained up and drooling on their ball-gag with blue balls again.",
+      whatsNext: "Netflix obviously isn't going anywhere, because the one thing about watching a donkey (Netflix) fuck a duck (all of us) is that no matter how hard you try you just can't look away. So our eyes are glued, Netflix is laughing all the way to the bank, and Jake Paul still isn't dead. With major NFL events coming to Netflix on Christmas Day, one has to wonder if the streaming giant is going to finish us off next time or leave us all chained up and biting their ball-gag with blue balls again.",
       signOff: "Oh, and for all of you who missed the fight:",
       tweetIds: [
         "1857633849817129101",
