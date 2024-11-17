@@ -1,6 +1,28 @@
 import Image from "next/image";
 import { EmailSubscription } from "@/components";
 
+export async function generateMetadata() {
+  return {
+    title: "The Panic Loop Podcast",
+    description: "The Panic Loop Podcast: An edgy, tech-infused podcast blending wit, insight, and NSFW humor.",
+    keywords: "tech podcast, witty podcast, NSFW tech show, tech culture, IoT, video games, movies",
+    openGraph: {
+      title: "The Panic Loop Podcast",
+      description: "An unapologetically raw and witty podcast diving into tech, movies, gaming, and more.",
+      type: "website",
+      url: "https://www.thepanicloop.com",
+      images: [
+        {
+          url: "/path-to-image.jpg", // Adjust as needed
+          width: 1200,
+          height: 630,
+          alt: "The Panic Loop Podcast Logo",
+        },
+      ],
+    },
+  };
+}
+
 export default function Home() {
 
   return (
