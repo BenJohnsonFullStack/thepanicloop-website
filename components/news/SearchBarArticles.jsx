@@ -1,6 +1,7 @@
 'use client';
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function SearchBarArticles() {
   const searchParams = useSearchParams();
@@ -8,14 +9,14 @@ export default function SearchBarArticles() {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = (term) => {
+  const handleSearch = useDebouncedCallback((term) => {
     if (term) {
       params.set('query', term)
     } else {
       params.delete('query')
     }
     replace(`${pathname}?${params.toString()}`)
-  };
+  }, 300);
 
   return (
     <div className="mb-4">
