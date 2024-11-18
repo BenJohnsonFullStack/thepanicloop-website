@@ -28,14 +28,14 @@ export async function generateMetadata() {
 export default function News({ searchParams }) {
   return (
     <div className="mt-16 py-10 px-4 text-white text-2xl">
-      <SearchBarArticles />
       <Suspense fallback={
         <div className="flex items-center justify-center min-h-[300px]">
           <Spinner className="w-16 h-16" />
         </div>
       }>
-        <NewsFeed searchParams={searchParams} />
+        <SearchBarArticles />
       </Suspense>
+      <NewsFeed searchParams={searchParams} />
     </div>
   )
 }
