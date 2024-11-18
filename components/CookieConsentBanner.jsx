@@ -1,31 +1,27 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
+import { useState } from 'react';
+import { useCookieConsent } from "@/contexts/CookieConsentContext";
 
 export default function CookieConsentBanner() {
-  const [showBanner, setShowBanner] = useState(false);
+  const { setConsent, consentMade } = useCookieConsent();
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
-  useEffect(() => {
-    const consentGiven = Cookies.get('cookie_consent');
-    if (!consentGiven) {
-      setShowBanner(true);
-    }
-  }, []);
+  if (consentMade) return null; // Hide banner if any consent decision was made
 
   const handleConsent = (consent) => {
-    Cookies.set('cookie_consent', consent, {
-        expires: 365, // Store consent for 1 year
-        sameSite: 'Lax', // allow on navigation
-        secure: true, // send only over https
-      });
-    setShowBanner(false);
+    setIsAnimatingOut(true); // Start the animation
+    setTimeout(() => {
+      setConsent(consent); // Call setConsent after the animation
+    }, 250); // Adjust the time to match your animation duration (e.g., 500ms)
   };
 
-  if (!showBanner) return null;
-
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-gray-900 text-white p-4 md:p-6 flex flex-col md:flex-row justify-between items-center z-50 shadow-lg animate-slide-up">
+    <div
+      className={`fixed bottom-0 left-0 w-full bg-gray-900 text-white p-4 md:p-6 flex flex-col md:flex-row justify-between items-center z-50 shadow-lg transition-transform duration-300 ${
+        isAnimatingOut ? 'animate-slide-down' : 'animate-slide-up'
+      }`}
+    >
       <p className="text-sm md:text-base mb-3 md:mb-0 md:mr-4 text-center md:text-left">
         We use cookies to improve your experience on our site. By continuing to use our site, you accept our use of cookies.
       </p>
