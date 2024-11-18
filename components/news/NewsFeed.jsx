@@ -10,8 +10,7 @@ export default function NewsFeed({ searchParams }) {
     ? articles.filter((article) =>
         article.headline.toLowerCase().includes(query.toLowerCase()) ||
         article.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
-        article.description.toLowerCase().includes(query.toLowerCase()) ||
-        (article.body && article.body.toLowerCase().includes(query.toLowerCase()))
+        article.description.toLowerCase().includes(query.toLowerCase())
       )
     : articles; // Return all articles if the query is an empty string
 

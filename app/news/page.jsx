@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import { NewsFeed, SearchBarArticles } from "@/components/news";
+import { Spinner } from "@/components";
 
 export async function generateMetadata() {
   return {
@@ -27,7 +29,13 @@ export default function News({ searchParams }) {
   return (
     <div className="mt-16 py-10 px-4 text-white text-2xl">
       <SearchBarArticles />
-      <NewsFeed searchParams={searchParams}  />
+      <Suspense fallback={
+        <div className="flex items-center justify-center min-h-[300px]">
+          <Spinner className="w-16 h-16" />
+        </div>
+      }>
+        <NewsFeed searchParams={searchParams} />
+      </Suspense>
     </div>
   )
 }
