@@ -1,33 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
-export default function SearchBarArticles({ articles, setFilteredArticles }) {
-  const [query, setQuery] = useState('');
+export default function SearchBarArticles() {
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams)
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
-  const handleSearch = (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    setQuery(searchTerm);
-
-    if (searchTerm === '') {
-      setFilteredArticles(articles);
+  const handleSearch = (term) => {
+    if (term) {
+      params.set('query', term)
     } else {
-      const filtered = articles.filter((article) =>
-        article.headline.toLowerCase().includes(searchTerm) ||
-        article.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
-        article.description.toLowerCase().includes(searchTerm) ||
-        (article.body && article.body.toLowerCase().includes(searchTerm))
-      );
-      setFilteredArticles(filtered);
+      params.delete('query')
     }
+    replace(`${pathname}?${params.toString()}`)
   };
 
   return (
     <div className="mb-4">
       <input
         type="text"
-        value={query}
-        onChange={handleSearch}
+        defaultValue={params.get('query')?.toString()}
+        onChange={(e) => handleSearch(e.target.value.trim().toLowerCase())}
         placeholder="Search articles..."
         className="w-full sm:w-1/4 mb-2 px-3 py-2 border border-gray-700 rounded-md bg-gray-800 text-gray-300 placeholder-gray-500 focus:outline-none focus:border-indigo-500"
       />
