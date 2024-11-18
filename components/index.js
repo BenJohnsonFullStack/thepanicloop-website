@@ -5,6 +5,7 @@ import Spinner from "./Spinner";
 import NavLinks from "./NavLinks";
 import Header from "./Header";
 import CookieConsentBanner from "./CookieConsentBanner";
+import GoogleAnalyticsLoader from "./GoogleAnalyticsLoader";
 
 export {
     EmailInput,
@@ -13,5 +14,6 @@ export {
     Spinner,
     NavLinks,
     Header,
-    CookieConsentBanner
+    CookieConsentBanner,
+    GoogleAnalyticsLoader
 }

@@ -55,6 +55,7 @@ export default function Home() {
       <p className="text-sm text-gray-400">
         New episodes coming in 2025. Stay tuned!
       </p>
+      
     </div>
   );
 }
