@@ -1,9 +1,7 @@
 import { NewsArticle } from '.';
 import { articles } from '@/constants';
 
-export default function NewsFeed({ searchParams }) {
-  
-  const { query = "" } = searchParams;
+export default function NewsFeed({ query }) {
   
   // Conditional filtering based on the query
   const filteredArticles = query
