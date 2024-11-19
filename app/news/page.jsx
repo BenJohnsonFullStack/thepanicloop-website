@@ -26,16 +26,19 @@ export async function generateMetadata() {
 }
 
 export default function News({ searchParams }) {
+
+  const { query = "" } = searchParams
+
   return (
     <div className="mt-16 py-10 px-4 text-white text-2xl">
-      <Suspense fallback={
+      <SearchBarArticles />
+      <Suspense key={query} fallback={
         <div className="flex items-center justify-center min-h-[300px]">
           <Spinner className="w-16 h-16" />
         </div>
       }>
-        <SearchBarArticles />
+        <NewsFeed query={query} />
       </Suspense>
-      <NewsFeed searchParams={searchParams} />
     </div>
   )
 }
